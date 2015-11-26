@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    tools:context="com.nought.hellowebviewjs.MainActivity">
+
+    <Button
+        android:id="@+id/btn_call_js"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="call js function"
+        app:layout_widthPercent="50%" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        app:layout_widthPercent="50%" />
+
+    <TextView
+        android:id="@+id/text"
+        android:padding="16dp"
+        android:textSize="14sp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_call_js"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/webview"
+        android:text="I'm a TextView!"
+        app:layout_widthPercent="50%" />
+
+</android.support.percent.PercentRelativeLayout>

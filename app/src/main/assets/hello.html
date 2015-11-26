@@ -2,9 +2,11 @@
 <html>
 <body>
 
-	<input type="button" onclick="jsCallJavaByInterface('JS called Java by interface.')" value="CALL JAVA FUNCTION" style="width:100%; height:40px;"/>
+	<input type="button" onclick="jsCallJavaByInterface('JS called Java by interface.')" value="CALL JAVA by interface" style="width:100%; height:40px;"/>
 
-	<p id="hello">I'm a WebView!</p>
+	<input type="button" onclick="jsCallJavaByIframe('JS called Java by iframe.')" value="CALL JAVA by iframe" style="width:100%; height:40px; margin-top:10px;"/>
+
+	<p id="hello">I'm a WebView!<br/></p>
 
 	<script type="text/javascript">
 	// JS提供给Java调用的方法
@@ -22,9 +24,16 @@
 		Android.jsCallJava(arg);
 	}
 
-	// JS调用Java的方法2
+	/* 
+	 *  JS通过创建一个不可见的iframe来调用Java
+	 */
 	function jsCallJavaByIframe(arg) {
-		Android.jsCallJava(arg);
+		//创建iframe
+		var iframe = document.createElement('iframe');
+		iframe.id = "hello-iframe"
+		iframe.style.display = 'none';
+		iframe.src = "bridge://uncle.nought.com/?arg=" + arg; // 把iframe的src设为要传递给Java的参数
+		document.body.appendChild(iframe);
 	}
 
 </script>

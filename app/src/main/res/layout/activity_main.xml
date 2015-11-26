@@ -32,7 +32,7 @@
         android:layout_below="@id/btn_call_js"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/webview"
-        android:text="I'm a TextView!"
+        android:text="I'm a TextView!\n"
         app:layout_widthPercent="50%" />
 
 </android.support.percent.PercentRelativeLayout>

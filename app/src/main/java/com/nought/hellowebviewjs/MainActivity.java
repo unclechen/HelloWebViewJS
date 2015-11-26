@@ -14,6 +14,27 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     private WebAppInterface mWebAppInterface;
 
+    private TextViewChanger mTextChanger = new TextViewChanger() {
+        @Override
+        public void changeText(final String arg) {
+            /**
+             * 官方说明文档：
+             * Note: The object that is bound to your JavaScript runs in another thread and not in the thread
+             * in which it was constructed.
+             *
+             * mWebAppInterface虽然是在UI线程创建的，但是bind到JS以后就是在另一条线程中运行的，因此刷新UI的时候需要注意
+             */
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mTextView != null) {
+                        mTextView.append("\n" + arg);
+                    }
+                }
+            });
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initWebView() {
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(mWebAppInterface, "Android");
+        mWebView.addJavascriptInterface(mWebAppInterface, "Android"); // JS通过Interface调用Java
+        mWebView.setWebViewClient(new HelloWebViewClient(mTextChanger)); // JS通过WebViewClient调用Java
         mWebView.loadUrl("file:///android_asset/hello.html");
     }
 
@@ -47,24 +69,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTextView() {
-        TextViewChanger mTextChanger = new TextViewChanger() {
-            @Override
-            public void changeText(final String arg) {
-                /**
-                 * 官方说明文档：
-                 * Note: The object that is bound to your JavaScript runs in another thread and not in the thread
-                 * in which it was constructed.
-                 *
-                 * mWebAppInterface虽然是在UI线程创建的，但是bind到JS以后就是在另一条线程中运行的，因此刷新UI的时候需要注意
-                 */
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTextView.append("\n" + arg);
-                    }
-                });
-            }
-        };
         mWebAppInterface.setTextChanger(mTextChanger);
     }
 

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class HelloWebViewClient extends WebViewClient {
     private static final String TAG = HelloWebViewClient.class.getSimpleName();
-    private static final String PREFIX = "bridge://uncle.nought.com/";
+    private static final String PREFIX = "bridge://uncle.nought.com";
     private static final Pattern ARG_PATTERN = Pattern.compile(PREFIX + "\\?arg=(.*)");
 
     private MainActivity.TextViewChanger mTextViewChanger;
